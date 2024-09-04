@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'DaisySticker_Magnet.webp' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>BookDaisy</title>
+</head>
+
+<body class="light-mode-body">
+
+    <nav>
+        <div class="nav-wrapper light-mode-header-footer" id="header">
+            <a href="#" class="brand-logo right"><img id="headerimg" src="../static/DaisySticker_Magnet.webp"
+                    alt=""></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Edit Shelf</a></li>
+                <li><a href="#">My Library</a></li>
+                <li><a href="#">Add a Book</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="page-footer light-mode-header-footer" id="footer">
+        <div class="container">
+            <div class="left">© 2024 BookDaisy</div>
+            <!-- <a class="grey-text text-lighten-4" href="#">About</a>
+            <a class="grey-text text-lighten-4" href="#">Resources</a>
+            <a class="grey-text text-lighten-4" href="#">Share</a> -->
+            <button type="button" onclick="toggle()" id="toggle" class="right light-mode" value="Light Mode">Toggle Dark/Light Mode</button>
+        </div>
+    </footer>
+
+    <script>
+        let toggleButton = document.getElementById('toggle');
+        let body = document.querySelector('body');
+        let header = document.getElementById('header');
+        let footer = document.getElementById('footer');
+        function toggle() {
+            let toggleOption = toggleButton.getAttribute('class');
+            if (toggleOption.includes("dark-mode")) {
+                toggleButton.setAttribute('class', 'right light-mode');
+                toggleButton.value = 'Dark Mode';
+                body.setAttribute('class', 'light-mode-body');
+                header.setAttribute('class', 'nav-wrapper light-mode-header-footer');
+                footer.setAttribute('class', 'page-footer light-mode-header-footer');
+            } else {
+                toggleButton.setAttribute('class', 'right dark-mode');
+                toggleButton.value = 'Light Mode';
+                body.setAttribute('class', 'dark-mode-body');
+                header.setAttribute('class', 'nav-wrapper dark-mode-header-footer');
+                footer.setAttribute('class', 'page-footer dark-mode-header-footer');
+            }
+        }
+    </script>
+</body>
+
+</html>

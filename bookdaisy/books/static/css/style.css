@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#toggle, #toggle:active {
+    background-color: rgb(206, 206, 206);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 
+}
+
+.light-mode-header-footer {
+    background-color: rgb(82, 152, 82);
+    color: rgb(204, 204, 204);
+}
+
+.dark-mode-header-footer {
+    background-color: rgb(17, 33, 17);
+    color: rgb(204, 204, 204);
+}
+
+.dark-mode-body {
+    background-color: rgb(31, 31, 31);
+    color: rgb(204, 204, 204);
+}
+
+.light-mode-body {
+    background-color: rgb(246, 246, 246);
+}
+
+.dark-mode-body > a {
+    color: rgb(204, 204, 204);
+}
+
+#headerimg {
+    width: 40px;
+    margin: 10px;
+}
+
+footer > div {
+    justify-content: space-between;
+}
