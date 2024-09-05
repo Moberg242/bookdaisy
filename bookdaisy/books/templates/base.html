@@ -7,23 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'DaisySticker_Magnet.webp' %}">
+    <link rel="icon" type="image/png" href="{% static 'daisy.webp' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap');
+        </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>BookDaisy</title>
+    <title>Daisy Books</title>
 </head>
 
-<body class="light-mode-body">
+<body class="dark-mode-body">
 
     <nav>
-        <div class="nav-wrapper light-mode-header-footer" id="header">
-            <a href="#" class="brand-logo right"><img id="headerimg" src="../static/DaisySticker_Magnet.webp"
-                    alt=""></a>
+        <div class="nav-wrapper dark-mode-header-footer" id="header">
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Edit Shelf</a></li>
                 <li><a href="#">My Library</a></li>
-                <li><a href="#">Add a Book</a></li>
+                <li><a href="{% url 'add_book' %}">Add a Book</a></li>
             </ul>
+                <!-- <a href="#" class="right">Sign In</a> -->
+                <a href="#" class="brand-logo right">Daisy Books <img id="headerimg" src="../static/daisy.webp"
+                    alt=""></a>
         </div>
     </nav>
 
@@ -32,9 +36,9 @@
         {% endblock %}
     </main>
 
-    <footer class="page-footer light-mode-header-footer" id="footer">
+    <footer class="page-footer dark-mode-header-footer" id="footer">
         <div class="container">
-            <div class="left">© 2024 BookDaisy</div>
+            <div class="left">© 2024 Daisy Books</div>
             <!-- <a class="grey-text text-lighten-4" href="#">About</a>
             <a class="grey-text text-lighten-4" href="#">Resources</a>
             <a class="grey-text text-lighten-4" href="#">Share</a> -->

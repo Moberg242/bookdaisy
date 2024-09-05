@@ -1,3 +1,7 @@
+* {
+    font-family: Klee One;
+}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -12,7 +16,9 @@ main {
     background-color: rgb(206, 206, 206);
     margin-bottom: 10px;
     border-radius: 10px;
-    border: 
+    padding: 3px;
+    border: none;
+    font-family: Klee One;
 }
 
 .light-mode-header-footer {
@@ -40,9 +46,5 @@ main {
 
 #headerimg {
     width: 40px;
-    margin: 10px;
-}
-
-footer > div {
-    justify-content: space-between;
+    padding-top: 10px;
 }
