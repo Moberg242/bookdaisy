@@ -10,24 +10,23 @@
     <link rel="icon" type="image/png" href="{% static 'daisy.webp' %}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap');
-        </style>
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Daisy Books</title>
 </head>
 
-<body class="dark-mode-body">
+<body class="light-mode-body">
 
     <nav>
-        <div class="nav-wrapper dark-mode-header-footer" id="header">
+        <div class="nav-wrapper light-mode-header-footer" id="header">
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="#">Home</a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="#">Edit Shelf</a></li>
-                <li><a href="#">My Library</a></li>
+                <li><a href="{% url 'index' %}">My Library</a></li>
                 <li><a href="{% url 'add_book' %}">Add a Book</a></li>
             </ul>
-                <!-- <a href="#" class="right">Sign In</a> -->
-                <a href="#" class="brand-logo right">Daisy Books <img id="headerimg" src="../static/daisy.webp"
-                    alt=""></a>
+            <!-- <a href="#" class="right">Sign In</a> -->
+            <a href="#" class="brand-logo right">Daisy Books <img id="headerimg" src="../static/daisy.webp" alt=""></a>
         </div>
     </nav>
 
@@ -36,13 +35,14 @@
         {% endblock %}
     </main>
 
-    <footer class="page-footer dark-mode-header-footer" id="footer">
+    <footer class="page-footer light-mode-header-footer" id="footer">
         <div class="container">
             <div class="left">© 2024 Daisy Books</div>
             <!-- <a class="grey-text text-lighten-4" href="#">About</a>
             <a class="grey-text text-lighten-4" href="#">Resources</a>
             <a class="grey-text text-lighten-4" href="#">Share</a> -->
-            <button type="button" onclick="toggle()" id="toggle" class="right light-mode" value="Light Mode">Toggle Dark/Light Mode</button>
+            <button type="button" onclick="toggle()" id="toggle" class="right light-mode" value="Light Mode">Toggle
+                Dark/Light Mode</button>
         </div>
     </footer>
 
@@ -55,18 +55,30 @@
             let toggleOption = toggleButton.getAttribute('class');
             if (toggleOption.includes("dark-mode")) {
                 toggleButton.setAttribute('class', 'right light-mode');
-                toggleButton.value = 'Dark Mode';
                 body.setAttribute('class', 'light-mode-body');
                 header.setAttribute('class', 'nav-wrapper light-mode-header-footer');
                 footer.setAttribute('class', 'page-footer light-mode-header-footer');
             } else {
                 toggleButton.setAttribute('class', 'right dark-mode');
-                toggleButton.value = 'Light Mode';
                 body.setAttribute('class', 'dark-mode-body');
                 header.setAttribute('class', 'nav-wrapper dark-mode-header-footer');
                 footer.setAttribute('class', 'page-footer dark-mode-header-footer');
             }
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js"
+        integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Initialize materialize data picker
+            $('select').formSelect();
+
+        });
     </script>
 </body>
 

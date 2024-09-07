@@ -48,3 +48,16 @@ main {
     width: 40px;
     padding-top: 10px;
 }
+
+textarea, input:focus, input[type=text], input[type=number] {
+    color: rgb(50, 98, 50);
+}
+
+.file-field > .btn {
+    background-color: transparent;
+    color: grey;
+}
+
+form > div {
+    padding: 6px;
+}

@@ -6,9 +6,9 @@ class Book(models.Model):
     author = models.CharField()
     genre = models.CharField()
     rating = models.IntegerField()
-    recommend = models.BooleanField()
-    notes = models.TextField(max_length=200)
     read = models.BooleanField()
+    recommend = models.BooleanField()
+    notes = models.TextField(max_length=200, null=True)
     image = models.FileField()
     image_data = models.BinaryField(null=True)
 

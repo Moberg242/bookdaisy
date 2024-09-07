@@ -1,14 +1,29 @@
 {% extends 'base.html' %} {% block content %}
+{% load materializecss %}
 
+{% if object %}
+<h3>Update {{object.title}}</h3>
+{% else %}
 <h3>Add a New Book</h3>
+{% endif %}
+
 <hr>
+<br>
+
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
-        {{ form.as_p }}
+       {{form|materializecss}}
+       {% if object %}
+       <img src="{{object.image}}" alt="{{object.title}}">
+       {% endif %}
     </table>
     <br>
-    <input type="submit" value="Add Book">
+    <div>
+        <input type="submit" value="{% if object %} Edit {% else %} Add Book {% endif %}" class="btn">
+    </div>
 </form>
 
 {% endblock %}
+
+
