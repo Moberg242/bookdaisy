@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %}
+
+<h2>Search results</h2>
+
+<hr>
+<a href="{% url 'index' %}">Back to Books</a>
+<br> <br>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Rating</th>
+            <th>TBR?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in object_list %}
+        <tr>
+            <td><a href="{% url 'book_details' book.id %}">{{book.title}}</a></td>
+            <td>{{book.author}}</td>
+            <td>{{book.genre}}</td>
+            <td>{{book.rating}}</td>
+            {% if book.read %}
+            <td>No</td>
+            {% else %}
+            <td>Yes</td>
+            {% endif %}
+            <td><a href="{% url 'update_book' book.id %}" class="grey-text">Edit</a></td>
+            <td>
+                <form action="{% url 'delete_book' book.id %}">
+                    <input type="submit" value="🗑" class="btn" style="background-color: transparent">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

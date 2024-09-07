@@ -12,7 +12,8 @@ main {
     flex: 1 0 auto;
 }
 
-#toggle, #toggle:active {
+#toggle,
+#toggle:active {
     background-color: rgb(206, 206, 206);
     margin-bottom: 10px;
     border-radius: 10px;
@@ -36,7 +37,7 @@ main {
     color: rgb(204, 204, 204);
 }
 
-.dark-mode-body > main > .modal-content > .modal-body {
+.dark-mode-body>main>.modal-content>.modal-body {
     background-color: rgb(53, 53, 53);
 }
 
@@ -44,7 +45,7 @@ main {
     background-color: rgb(246, 246, 246);
 }
 
-.dark-mode-body > a {
+.dark-mode-body>a {
     color: rgb(204, 204, 204);
 }
 
@@ -53,16 +54,25 @@ main {
     padding-top: 10px;
 }
 
-textarea, input:focus, input[type=text], input[type=number] {
+textarea,
+input:focus,
+input[type=text],
+input[type=number] {
     color: rgb(50, 98, 50);
 }
 
-.file-field > .btn, .form-btn {
+.file-field>.btn,
+.form-btn {
     background-color: rgb(99, 99, 99);
     color: rgb(221, 221, 221);
 }
 
-form > div {
+.form-btn:hover {
+    background-color: rgb(76, 76, 76);
+    color: rgb(221, 221, 221);
+}
+
+form>div {
     padding: 6px;
 }
 
@@ -83,7 +93,7 @@ a:hover {
     background-color: inherit;
 }
 
-.modal-body > div {
+.modal-body>div {
     margin: 20px;
 }
 
@@ -101,7 +111,28 @@ a:hover {
     align-content: center;
 }
 
-.details > div {
+.details>div {
     font-weight: 300;
     padding: 20px;
+}
+
+fieldset>div {
+    width: fit-content;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+    border: 2px solid rgb(82, 152, 82);
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+    background-color: rgb(82, 152, 82);
 }

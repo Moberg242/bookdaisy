@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'allauth',
     'allauth.account',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

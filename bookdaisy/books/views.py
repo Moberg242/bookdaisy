@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from pyexpat import model
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -11,7 +13,7 @@ def home(req):
     return render(req, 'home.html')
 
 def index(req):
-     return render(req, 'books/index.html')
+     return render(req, 'books/index.html', {'sorted':'title'})
 
 def add_book(req):
     if req.method == 'POST':
@@ -38,6 +40,15 @@ class DeleteBook(DeleteView):
 class Index(ListView):
     model = Book
     template_name = 'books/index.html'
+
+class SearchTitle(ListView):
+     model = Book
+     template_name = 'books/search.html'
+     
+     def get_queryset(self):
+          query = self.request.GET.get('q')
+          queryset = Book.objects.all().filter(title__icontains=query)
+          return queryset
 
 class BookDetails(DetailView):
      model = Book

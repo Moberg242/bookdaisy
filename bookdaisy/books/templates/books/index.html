@@ -5,6 +5,44 @@
 <hr>
 <br>
 
+<!-- <div>
+    <fieldset class="sort-by">
+        <legend>Sort By:</legend>
+        <div>
+            <label>
+                <input type="radio" name="group1" id="title" class="with-gap red-text">
+                <span>Title</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="radio" name="group1" id="author" class="with-gap red">
+                <span>Author</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="radio" name="group1" id="genre" class="with-gap radio-red">
+                <span>Genre</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="radio" name="group1" id="rating" class="with-gap red">
+                <span>Rating</span>
+            </label>
+        </div>
+    </fieldset>
+</div> -->
+
+<form action="{% url 'search_title' %}" method="GET">
+    <input type="text" placeholder="Search Books" name="q">
+    <input type="submit" class="btn form-btn" value="Search">
+</form>
+
+<hr>
+<br>
+
 <table>
     <thead>
         <tr>
@@ -16,7 +54,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for book in object_list %}
+        {% for book in object_list|dictsort:'title' %}
         <tr>
             <td><a href="{% url 'book_details' book.id %}">{{book.title}}</a></td>
             <td>{{book.author}}</td>
