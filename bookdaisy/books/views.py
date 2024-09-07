@@ -18,7 +18,8 @@ def add_book(req):
         form = BookForm(req.POST, req.FILES)
         if form.is_valid():
             new_book = form.save(commit=False)
-            new_book.image_data = form.cleaned_data['image'].file.read()
+            # if new_book.image:
+            #      new_book.image_data = form.cleaned_data['image'].file.read()
             new_book.save()
             return redirect('home')
     else:
@@ -37,3 +38,7 @@ class DeleteBook(DeleteView):
 class Index(ListView):
     model = Book
     template_name = 'books/index.html'
+
+class BookDetails(DetailView):
+     model = Book
+     template_name = 'books/details.html'

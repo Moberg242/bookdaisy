@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="modal-content">
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-title center">
+                <h5>{{object.title}}</h5>
+            </div>
+            <div class="card-image">
+                <img src="{{object.image.url}}" alt="img" id="card-image">
+            </div>
+            <div class="card-content">
+                <h6 class="center">{{object.author}}</h6>
+            </div>
+        </div>
+        <div class="details center">
+            <div id="rating">
+                Rating:
+                {% if object.rating > 5 %}
+                <span>⭐ ⭐ ⭐ ⭐ ⭐ </span>
+                {% else %}
+                {% for item in "x"|ljust:object.rating %}
+                ⭐
+                {% endfor %}
+                <!-- code help from: https://pythoncircle.com/post/685/for-loop-in-django-template/ -->
+                {% endif %}
+            </div>
+            <div>
+                Genre: {{object.genre}}
+            </div>
+            {% if object.recommend == True %}
+            <div>
+                Recommend? Yes
+            </div>
+            {% elif object.recommend == False %}
+            <div>
+                Recommend? No
+            </div>
+            {% endif %}
+            <div>
+                <p>Notes <br>
+                    {{object.notes}}</p>
+            </div>
+            <div>
+                <a href="{% url 'update_book' object.id %}" class="btn form-btn">Edit</a>
+            </div>
+                <form action="{% url 'delete_book' object.id %}">
+                    <input type="submit" value="🗑" class="btn" style="background-color: transparent">
+                </form>
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'index' %}">Back to Books</a>
+
+{% endblock %}

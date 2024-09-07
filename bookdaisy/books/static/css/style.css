@@ -36,6 +36,10 @@ main {
     color: rgb(204, 204, 204);
 }
 
+.dark-mode-body > main > .modal-content > .modal-body {
+    background-color: rgb(53, 53, 53);
+}
+
 .light-mode-body {
     background-color: rgb(246, 246, 246);
 }
@@ -53,11 +57,51 @@ textarea, input:focus, input[type=text], input[type=number] {
     color: rgb(50, 98, 50);
 }
 
-.file-field > .btn {
-    background-color: transparent;
-    color: grey;
+.file-field > .btn, .form-btn {
+    background-color: rgb(99, 99, 99);
+    color: rgb(221, 221, 221);
 }
 
 form > div {
     padding: 6px;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+a:hover {
+    color: rgb(255, 219, 88)
+}
+
+.modal-body {
+    border: 3px solid rgb(17, 33, 17, .8);
+    width: 60vw;
+    margin: 20px;
+    display: flex;
+    background-color: inherit;
+}
+
+.modal-body > div {
+    margin: 20px;
+}
+
+#card-image {
+    width: 300px;
+}
+
+.card {
+    width: fit-content;
+    padding: 10px;
+    background-color: inherit;
+}
+
+.details {
+    align-content: center;
+}
+
+.details > div {
+    font-weight: 300;
+    padding: 20px;
 }

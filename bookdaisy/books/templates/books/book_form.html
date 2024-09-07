@@ -15,12 +15,12 @@
     <table>
        {{form|materializecss}}
        {% if object %}
-       <img src="{{object.image}}" alt="{{object.title}}">
+       <img src="{{object.image.url}}" alt="img" id="card-image">
        {% endif %}
     </table>
     <br>
     <div>
-        <input type="submit" value="{% if object %} Edit {% else %} Add Book {% endif %}" class="btn">
+        <input type="submit" value="{% if object %} Edit {% else %} Add Book {% endif %}" class="btn form-btn">
     </div>
 </form>
 
