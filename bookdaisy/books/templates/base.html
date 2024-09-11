@@ -22,11 +22,11 @@
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="#">Edit Shelf</a></li>
-                <li><a href="{% url 'index' %}">My Library</a></li>
+                <li><a href="{% url 'index' 'title' %}">My Library</a></li>
                 <li><a href="{% url 'add_book' %}">Add a Book</a></li>
             </ul>
             <!-- <a href="#" class="right">Sign In</a> -->
-            <a href="#" class="brand-logo right">Daisy Books <img id="headerimg" src="{% static 'daisy.webp' %}" alt=""></a>
+            <a href="{% url 'home' %}" class="brand-logo right">Daisy Books <img id="headerimg" src="{% static 'daisy.webp' %}" alt=""></a>
         </div>
     </nav>
 
@@ -46,26 +46,6 @@
         </div>
     </footer>
 
-    <script>
-        let toggleButton = document.getElementById('toggle');
-        let body = document.querySelector('body');
-        let header = document.getElementById('header');
-        let footer = document.getElementById('footer');
-        function toggle() {
-            let toggleOption = toggleButton.getAttribute('class');
-            if (toggleOption.includes("dark-mode")) {
-                toggleButton.setAttribute('class', 'right light-mode');
-                body.setAttribute('class', 'light-mode-body');
-                header.setAttribute('class', 'nav-wrapper light-mode-header-footer');
-                footer.setAttribute('class', 'page-footer light-mode-header-footer');
-            } else {
-                toggleButton.setAttribute('class', 'right dark-mode');
-                body.setAttribute('class', 'dark-mode-body');
-                header.setAttribute('class', 'nav-wrapper dark-mode-header-footer');
-                footer.setAttribute('class', 'page-footer dark-mode-header-footer');
-            }
-        }
-    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 

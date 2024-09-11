@@ -6,7 +6,8 @@ from django.conf import settings
 urlpatterns = [
     path('', views.home, name='home'),
     path('addbook/', views.add_book, name='add_book'),
-    path('library/', views.Index.as_view(), name='index'),
+    path('library/<sorted>/', views.Index.as_view(), name='index'),
+    path('library/<sorted>/tbr/', views.Tbr.as_view(), name='tbr'),
     path('search/', views.SearchTitle.as_view(), name='search_title'),
     path('book/<int:pk>/', views.BookDetails.as_view(), name='book_details'),
     path('book/<int:pk>/delete', views.DeleteBook.as_view(), name='delete_book'),

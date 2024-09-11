@@ -72,6 +72,15 @@ input[type=number] {
     color: rgb(221, 221, 221);
 }
 
+#searchform {
+    display: flex;
+    flex-direction: row;
+}
+
+#searchform > input[type=text] {
+    width: 90%;
+}
+
 form>div {
     padding: 6px;
 }

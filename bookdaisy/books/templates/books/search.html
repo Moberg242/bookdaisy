@@ -3,7 +3,7 @@
 <h2>Search results</h2>
 
 <hr>
-<a href="{% url 'index' %}">Back to Books</a>
+<a href="{% url 'index' 'title' %}">Back to Books</a>
 <br> <br>
 
 <table>
@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for book in object_list %}
+        {% for book in object_list|dictsort:'title' %}
         <tr>
             <td><a href="{% url 'book_details' book.id %}">{{book.title}}</a></td>
             <td>{{book.author}}</td>

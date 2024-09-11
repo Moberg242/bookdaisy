@@ -15,37 +15,37 @@
         <legend>Sort By:</legend>
         <div>
             <label>
-                <a href="{% url 'index' 'title' %}">
+                <a href="{% url 'tbr' 'title' %}">
                 <input type="radio" name="group1" class="with-gap" {% if view.kwargs.sorted == "title" %} checked {% endif %}> 
                 <span>Title</span></a>
             </label>
         </div>
         <div>
             <label>
-                <a href="{% url 'index' 'author' %}">
+                <a href="{% url 'tbr' 'author' %}">
                 <input type="radio" name="group1" class="with-gap" {% if view.kwargs.sorted == "author" %} checked {% endif %}> 
                 <span>Author</span></a>
             </label>
         </div>
         <div>
             <label>
-                <a href="{% url 'index' 'genre' %}">
+                <a href="{% url 'tbr' 'genre' %}">
                 <input type="radio" name="group1" class="with-gap" {% if view.kwargs.sorted == "genre" %} checked {% endif %}> 
                 <span>Genre</span></a>
             </label>
         </div>
         <div>
             <label>
-                <a href="{% url 'index' 'rating' %}">
+                <a href="{% url 'tbr' 'rating' %}">
                 <input type="radio" name="group1" class="with-gap" {% if view.kwargs.sorted == "rating" %} checked {% endif %}> 
                 <span>Rating</span></a>
             </label>
         </div>
         <div>
             <label for="tbr">
-                <a href="{% url 'tbr' view.kwargs.sorted %}">
-                    <input class="with-gap" type="checkbox" value="tbr" id="tbr"> 
-                    <span>TBR Only</span></a>
+                <a href="{% url 'index' 'title' %}">
+                <input class="with-gap" type="checkbox" value="tbr" id="tbr" checked> 
+                <span>TBR Only</span></a>
             </label>
         </div>
     </fieldset>
@@ -86,4 +86,3 @@
     </tbody>
 </table>
 {% endblock %}
-
