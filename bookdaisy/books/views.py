@@ -6,6 +6,10 @@ from pyexpat import model
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django import template
 from .models import Book
 from .forms import BookForm
@@ -13,60 +17,82 @@ from .forms import BookForm
 register = template.Library()
 
 # Create your views here.
+def about(req):
+     return render(req, 'about.html')
+
+@login_required
 def home(req):
     return render(req, 'home.html')
 
-def index(req):
-     return render(req, 'books/index.html', {'sorted':'title'})
-
+@login_required
 def add_book(req):
     if req.method == 'POST':
         form = BookForm(req.POST, req.FILES)
+        form.instance.user = req.user
         if form.is_valid():
-            new_book = form.save(commit=False)
-            # if new_book.image:
-            #      new_book.image_data = form.cleaned_data['image'].file.read()
-            new_book.save()
-            return redirect('home')
+          new_book = form.save(commit=False)
+          # if new_book.image:
+          #      new_book.image_data = form.cleaned_data['image'].file.read()
+          new_book.save()
+          return redirect('home')
     else:
-            form = BookForm()
+          form = BookForm()
     return render(req, 'books/book_form.html', {'form':form})
 
-class UpdateBook(UpdateView):
+def signup(req):
+     error_message = ''
+     if req.method == 'POST':
+          form = UserCreationForm(req.POST)
+          if form.is_valid():
+               user = form.save()
+               login(req, user)
+               return redirect('home')
+          else:
+               error_message = 'There was a problem, try again!'
+     form = UserCreationForm()
+     context = {'form':form, 'error_message': error_message}
+     return render(req, 'registration/signup.html', context)
+
+class AddBook(LoginRequiredMixin, CreateView):
      model = Book
-     fields = '__all__'
+     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'image']
+
+class UpdateBook(LoginRequiredMixin, UpdateView):
+     model = Book
+     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'image']
      success_url = '/library/title/'
 
-class DeleteBook(DeleteView):
+class DeleteBook(LoginRequiredMixin, DeleteView):
      model = Book
      success_url = '/library/title/'
 
-class Index(ListView):
+class Index(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'books/index.html'
 
     def get_queryset(self):
-        qs = super().get_queryset() 
-        return qs.order_by(self.kwargs['sorted'])
+        queryset = Book.objects.all().filter(user=self.request.user)
+        return queryset.order_by(self.kwargs['sorted'])
 #     help from django docs
 
-class Tbr(ListView):
+class Tbr(LoginRequiredMixin, ListView):
      model = Book
      template_name = 'books/tbr.html'
 
      def get_queryset(self):
-          queryset = Book.objects.all().filter(read=False)
+          queryset = Book.objects.all().filter(Q(read=False)|Q(user=self.request.user))
           return queryset.order_by(self.kwargs['sorted'])
 
-class SearchTitle(ListView):
+class SearchTitle(LoginRequiredMixin, ListView):
      model = Book
      template_name = 'books/search.html'
      
      def get_queryset(self):
           query = self.request.GET.get('q')
-          queryset = Book.objects.all().filter(Q(title__icontains=query)|Q(author__icontains=query))
+          queryset = Book.objects.all().filter(user=self.request.user)
+          queryset = queryset.filter(Q(title__icontains=query)|Q(author__icontains=query))
           return queryset
 
-class BookDetails(DetailView):
+class BookDetails(LoginRequiredMixin, DetailView):
      model = Book
      template_name = 'books/details.html'
