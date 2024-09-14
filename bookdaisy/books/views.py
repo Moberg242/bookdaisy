@@ -11,10 +11,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import template
-from .models import Book
+from .models import Book, Profile
 from .forms import BookForm
 
 register = template.Library()
+
+
 
 # Create your views here.
 def about(req):
@@ -39,19 +41,29 @@ def add_book(req):
           form = BookForm()
     return render(req, 'books/book_form.html', {'form':form})
 
-def signup(req):
-     error_message = ''
-     if req.method == 'POST':
-          form = UserCreationForm(req.POST)
-          if form.is_valid():
-               user = form.save()
-               login(req, user)
-               return redirect('home')
-          else:
-               error_message = 'There was a problem, try again!'
-     form = UserCreationForm()
-     context = {'form':form, 'error_message': error_message}
-     return render(req, 'registration/signup.html', context)
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
+
+@login_required
+def change_theme(req):
+     profile = Profile.objects.get(user=req.user)
+     if profile.darkTheme == True:
+          profile.darkTheme = False
+     else:
+          profile.darkTheme = True
+     profile.save()
+     return redirect ('home')
 
 class AddBook(LoginRequiredMixin, CreateView):
      model = Book

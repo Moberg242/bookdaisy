@@ -14,6 +14,7 @@ urlpatterns = [
     path('book/<int:pk>/delete', views.DeleteBook.as_view(), name='delete_book'),
     path('book/<int:pk>/update', views.UpdateBook.as_view(), name='update_book'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('accounts/theme/', views.change_theme, name='change_theme'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

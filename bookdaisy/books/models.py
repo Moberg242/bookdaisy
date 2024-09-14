@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save
+
+
 # Create your models here.
 class Book(models.Model):
     title = models.CharField()
@@ -29,3 +32,23 @@ class Book(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     darkTheme = models.BooleanField(default=False)
+    # friends = models.ManyToManyField("self",
+    #     related_name="followed_by",
+    #     symmetrical=True,
+    #     blank=True)
+    # https://www.youtube.com/watch?v=KNvSWubOaQY&list=PLCC34OHNcOtoQCR6K4RgBWNi3-7yGgg7b&index=3
+
+    def __str__(self):
+        if self.darkTheme:
+            return f"{self.user} has dark theme enabled."
+        else:
+            return f"{self.user} has light theme enabled."
+        
+
+# create profile when user is created
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        user_profile = Profile(user=instance)
+        user_profile.save()
+
+post_save.connect(create_profile, sender=User)
