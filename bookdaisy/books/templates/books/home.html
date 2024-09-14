@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+
+<h1>{{user|lower}}'s bookshelf</h1>
+<br><br>
+
+    <div class="bookshelf" style="background-color: black;">
+        <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
+    </div>
+    <!-- <div class="books">
+        <div id="1" style="background-color: white;">test</div>
+    </div> -->
+<br><br>
+
+{% endblock %}

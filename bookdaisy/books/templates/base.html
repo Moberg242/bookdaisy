@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/png" href="{% static 'daisy.webp' %}">
     <style>
@@ -18,9 +19,12 @@
 <body class="{% if user.profile.darkTheme %} dark-mode-body {% else %} light-mode-body {% endif %}">
 
     <nav>
-        <div class="nav-wrapper {% if user.profile.darkTheme %} dark-mode-header-footer {% else %} light-mode-header-footer {% endif %}" id="header">
+        <div class="nav-wrapper {% if user.profile.darkTheme %} dark-mode-header-footer {% else %} light-mode-header-footer {% endif %}"
+            id="header">
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="{% url 'about' %}">About</a></li>
+                <!-- <li><a href="{% url 'about' %}">About</a></li> -->
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'home' %}">Bookshelf</a></li>
                 <li><a href="#">Edit Shelf</a></li>
@@ -32,23 +36,32 @@
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
             </ul>
             {% endif %}
-            <!-- <a href="#" class="right">Sign In</a> -->
             <a href="{% url 'home' %}" class="brand-logo right">Daisy Books <img id="headerimg"
                     src="{% static 'daisy.webp' %}" alt=""></a>
         </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="{% url 'home' %}">Bookshelf</a></li>
+        <li><a href="#">Edit Shelf</a></li>
+        <li><a href="{% url 'index' 'title' %}">My Library</a></li>
+        <li><a href="{% url 'add_book' %}">Add a Book</a></li>
+        <li><a href="{% url 'logout' %}">Log Out</a></li>
+    </ul>
 
     <main class="container">
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer class="page-footer {% if user.profile.darkTheme %} dark-mode-header-footer {% else %} light-mode-header-footer {% endif %}" id="footer">
+    <footer
+        class="page-footer {% if user.profile.darkTheme %} dark-mode-header-footer {% else %} light-mode-header-footer {% endif %}"
+        id="footer">
         <div class="container">
-            <div class="left">© 2024 Daisy Books</div>
-            <!-- <a class="grey-text text-lighten-4" href="#">About</a>
-            <a class="grey-text text-lighten-4" href="#">Resources</a>
-            <a class="grey-text text-lighten-4" href="#">Share</a> -->
+                    <a class="grey-text text-lighten-2 links" href="{% url 'about' %}">About</a>
+                    <a class="grey-text text-lighten-2 links" href="#">Resources</a>
+                    <a class="grey-text text-lighten-2 links" href="#">Share</a>
+                <!-- <div>© 2024 Daisy Books</div> -->
             {% if user.is_authenticated %}
             <form action="{% url 'change_theme' %}">
                 <button type="submit" class="right light-mode" id="toggle" value="Light Mode">Toggle
@@ -65,13 +78,11 @@
         integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function () {
-
-            // Initialize materialize data picker
-            $('select').formSelect();
-
+        $(document).ready(function() {
+            $('.sidenav').sidenav();
         });
     </script>
+
 </body>
 
 </html>

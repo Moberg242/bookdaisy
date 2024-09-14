@@ -1,5 +1,5 @@
 from typing import Any
-from django.db.models.query import QuerySet
+# from django.db.models.query import QuerySet
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from pyexpat import model
@@ -16,15 +16,13 @@ from .forms import BookForm
 
 register = template.Library()
 
-
-
 # Create your views here.
 def about(req):
      return render(req, 'about.html')
 
 @login_required
 def home(req):
-    return render(req, 'home.html')
+    return render(req, 'books/home.html')
 
 @login_required
 def add_book(req):
@@ -48,7 +46,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()
@@ -58,12 +56,13 @@ def signup(request):
 @login_required
 def change_theme(req):
      profile = Profile.objects.get(user=req.user)
+     url = req.META.get('HTTP_REFERER')
      if profile.darkTheme == True:
           profile.darkTheme = False
      else:
           profile.darkTheme = True
      profile.save()
-     return redirect ('home')
+     return redirect (url)
 
 class AddBook(LoginRequiredMixin, CreateView):
      model = Book
@@ -92,7 +91,7 @@ class Tbr(LoginRequiredMixin, ListView):
      template_name = 'books/tbr.html'
 
      def get_queryset(self):
-          queryset = Book.objects.all().filter(Q(read=False)|Q(user=self.request.user))
+          queryset = Book.objects.all().filter(Q(read=False) & Q(user=self.request.user))
           return queryset.order_by(self.kwargs['sorted'])
 
 class SearchTitle(LoginRequiredMixin, ListView):
