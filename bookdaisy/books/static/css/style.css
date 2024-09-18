@@ -175,12 +175,41 @@ fieldset {
     align-content: center;
     text-align: center;
     overflow: hidden;
-    border-radius: 2px;
+    border-radius: 7px;
 }
 
-#one {
+#one, #two, #three, #four, #five {
     grid-row-start: 2;
+}
+
+#six, #seven, #eight, #nine, #ten {
+    grid-row-start: 4;
+}
+
+#eleven, #twelve, #thirteen, #fourteen, #fifteen {
+    grid-row-start: 6;
+}
+
+#sixteen, #seventeen, #eighteen, #nineteen, #twenty {
+    grid-row-start: 8;
+}
+
+#one, #six, #eleven, #sixteen {
     grid-column-start: 2;
+}
+
+#two, #seven, #twelve, #seventeen {
+    grid-column-start: 3;
+}
+
+#three, #eight, #thirteen, #eighteen {
+    grid-column-start: 4;
+}
+#four, #nine, #fourteen, #nineteen {
+    grid-column-start: 5;
+}
+#five, #ten, #fifteen, #twenty {
+    grid-column-start: 6;
 }
 
 .rotate {

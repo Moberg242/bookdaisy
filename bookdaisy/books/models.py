@@ -31,7 +31,7 @@ class Book(models.Model):
     color = ColorField(default='#FFFFFF')
     text_color = ColorField(default='000000')
     bookshelf = models.BooleanField(default=False)
-    position = models.IntegerField(blank=True, null=True)
+    position = models.CharField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

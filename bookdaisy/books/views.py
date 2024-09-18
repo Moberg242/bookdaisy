@@ -1,6 +1,7 @@
 from typing import Any
 # from django.db.models.query import QuerySet
 from django.db.models import Q
+from django.db.models.query import QuerySet
 from django.forms import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -24,7 +25,8 @@ def about(req):
 
 @login_required
 def home(req):
-    return render(req, 'books/home.html')
+    books = Book.objects.all().filter(Q(bookshelf=True) & Q(user=req.user))
+    return render(req, 'books/home.html', {'books':books})
 
 @login_required
 def add_book(req):
@@ -62,6 +64,15 @@ def change_theme(req):
           profile.darkTheme = True
      profile.save()
      return redirect (url)
+
+class EditShelf(LoginRequiredMixin, ListView):
+    model = Book
+    fields = ['bookshelf', 'position', 'color', 'text_color']
+    template_name = 'books/edit_bookshelf.html'
+
+    def get_queryset(self):
+        queryset = Book.objects.all().filter(user=self.request.user)
+        return queryset
 
 class AddBook(LoginRequiredMixin, CreateView):
      model = Book
