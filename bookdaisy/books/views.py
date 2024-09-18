@@ -1,6 +1,8 @@
 from typing import Any
 # from django.db.models.query import QuerySet
 from django.db.models import Q
+from django.forms import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from pyexpat import model
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -28,11 +30,8 @@ def home(req):
 def add_book(req):
     if req.method == 'POST':
         form = BookForm(req.POST, req.FILES)
-        form.instance.user = req.user
         if form.is_valid():
           new_book = form.save(commit=False)
-          # if new_book.image:
-          #      new_book.image_data = form.cleaned_data['image'].file.read()
           new_book.save()
           return redirect('home')
     else:
@@ -66,12 +65,15 @@ def change_theme(req):
 
 class AddBook(LoginRequiredMixin, CreateView):
      model = Book
-     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'image']
+     fields = ['title', 'author', 'genre', 'read', 'image']
+
+     def form_valid(self, form):
+         form.instance.user = self.request.user
+         return super().form_valid(form)
 
 class UpdateBook(LoginRequiredMixin, UpdateView):
      model = Book
-     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'image']
-     success_url = '/library/title/'
+     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'color', 'text_color', 'image']
 
 class DeleteBook(LoginRequiredMixin, DeleteView):
      model = Book

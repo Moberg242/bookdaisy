@@ -171,9 +171,20 @@ fieldset {
     background: center/200px no-repeat;
 }
 
-/* .books > div {
-    width: 18%;
+.bookshelf > div {
+    align-content: center;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+#one {
+    grid-row-start: 2;
+    grid-column-start: 2;
+}
+
+.rotate {
+    display: inline-block;
     transform: rotate(90deg);
-    z-index: 1;
-    position: fixed;
-} */
+    -moz-transform: rotate(90deg);
+}

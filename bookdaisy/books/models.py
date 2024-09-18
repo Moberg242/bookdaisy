@@ -1,33 +1,44 @@
 from django.db import models
 from django.contrib.auth.models import User
+from colorfield.fields import ColorField
+from django.urls import reverse
 
 from django.db.models.signals import post_save
 
 
+
+
 # Create your models here.
 class Book(models.Model):
+    RATINGS = (
+        (0, 'not read'),
+        (1, 'hated it'),
+        (2, 'disliked it'),
+        (3, 'indifferent'),
+        (4, 'liked it'),
+        (5, 'loved it'),
+    )
+
     title = models.CharField()
     author = models.CharField()
     genre = models.CharField()
-    rating = models.IntegerField(blank=True, default=0)
-    read = models.BooleanField()
+    rating = models.IntegerField(choices=RATINGS, default=0)
+    read = models.BooleanField(default=False)
     recommend = models.BooleanField(null=True)
-    notes = models.TextField(max_length=200, null=True)
+    notes = models.TextField(max_length=200, null=True, blank=True)
     image = models.ImageField(default='daisies.webp', blank=True)
     image_data = models.BinaryField(null=True, blank=True)
+    color = ColorField(default='#FFFFFF')
+    text_color = ColorField(default='000000')
+    bookshelf = models.BooleanField(default=False)
+    position = models.IntegerField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.title} - {self.author}"
     
-    class Meta:
-        constraints = [
-            models.CheckConstraint(
-                name='book_rating_range',
-                check=models.Q(rating__range=(0, 5)),
-                violation_error_message='Please rate 0-5'
-            )
-        ]
+    def get_absolute_url(self):
+        return reverse('book_details', kwargs={'pk': self.id})
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -2,7 +2,7 @@
 
 <div class="modal-content">
     <div class="modal-body">
-        <div class="card">
+        <div class="card" style="background-color: {{object.color}}; color: {{object.text_color}};">
             <div class="card-title center">
                 <h5>{{object.title}}</h5>
             </div>
@@ -18,6 +18,8 @@
                 Rating:
                 {% if object.rating > 5 %}
                 <span>⭐ ⭐ ⭐ ⭐ ⭐ </span>
+                {% elif object.rating == 0 %}
+                <span>Not Read</span>
                 {% else %}
                 {% for item in "x"|ljust:object.rating %}
                 ⭐
