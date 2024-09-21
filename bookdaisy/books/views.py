@@ -15,30 +15,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import template
 from .models import Book, Profile
-from .forms import BookForm, ShelfForm
+from .forms import BookForm, ShelfForm, ShelfColor
 
 register = template.Library()
 
 # Create your views here.
 def about(req):
      return render(req, 'about.html')
-
-@login_required
-def home(req):
-    books = Book.objects.all().filter(Q(bookshelf=True) & Q(user=req.user))
-    return render(req, 'books/bookshelf/home.html', {'books':books})
-
-# @login_required
-# def add_book(req):
-#     if req.method == 'POST':
-#         form = BookForm(req.POST, req.FILES)
-#         if form.is_valid():
-#           new_book = form.save(commit=False)
-#           new_book.save()
-#           return redirect('home')
-#     else:
-#           form = BookForm()
-#     return render(req, 'books/book_form.html', {'form':form})
 
 def signup(request):
   error_message = ''
@@ -113,7 +96,12 @@ class BookDetails(LoginRequiredMixin, DetailView):
      template_name = 'books/details.html'
 
 
-'''bookshelf editing views'''
+'''bookshelf views'''
+@login_required
+def home(req):
+    books = Book.objects.all().filter(Q(bookshelf=True) & Q(user=req.user))
+    return render(req, 'books/bookshelf/home.html', {'books':books})
+
 @login_required
 def add(req, **pk):
     if req.method == 'POST':
@@ -127,12 +115,13 @@ def add(req, **pk):
         return redirect('edit_bookshelf')
     else:
          form = ShelfForm(initial={'bookshelf':True})
+         color_form = ShelfColor(initial={'color':req.user.profile.color})
          books = Book.objects.all().filter(user=req.user)
          avail_books = Book.objects.all().filter(Q(user=req.user) & Q(bookshelf=False))
          used = books.filter(position__isnull = False).values_list('position', flat=True)
          used_positions = list(used)
          positions = [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-         context = {'form':form, 'books':books, 'positions':positions, 'used':used_positions, 'avail_books':avail_books}
+         context = {'form':form, 'color_form':color_form, 'books':books, 'positions':positions, 'used':used_positions, 'avail_books':avail_books}
     return render(req, 'books/bookshelf/edit_bookshelf.html', context)
 
 @login_required
@@ -143,3 +132,13 @@ def remove(req, position):
     book.position = None
     book.save()
     return redirect(url)
+
+@login_required
+def shelf_color(req):
+     profile = Profile.objects.get(user=req.user)
+     if req.method == 'POST':
+         color = req.POST['color']
+         profile.color = color
+         profile.save()
+     url = req.META.get('HTTP_REFERER')
+     return redirect (url)

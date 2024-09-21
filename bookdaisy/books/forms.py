@@ -6,22 +6,25 @@ from django import forms
 from colorfield.widgets import ColorWidget
 from django.forms.utils import ErrorList
 from django.forms import ModelChoiceField
-from .models import Book
-
-# class ColorInput(forms.widgets.Input):
-#     input_type = 'color'
+from .models import Book, Profile
 
 class BookForm(ModelForm):
     class Meta:
         model = Book
         fields = ['title','author','genre','read', 'read', 'recommend', 'notes', 'image']
 
-
-
 class ShelfForm(ModelForm):
     class Meta:
         model = Book
         fields = ['color', 'text_color']
+        widgets = {
+            'color':ColorWidget,
+        }
+
+class ShelfColor(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['color']
         widgets = {
             'color':ColorWidget,
         }

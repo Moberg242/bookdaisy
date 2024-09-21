@@ -9,7 +9,7 @@
     {% for book in books %}
     <div id="{{book.get_position_display}}"
         style="background-color: {{book.color}}; color: {{book.text_color}}; margin: 1px;">
-        <button class="rotate modal-trigger" data-target="{{book.title}}">{{book.title}}</button>
+        <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}">{{book.title}}</button>
     </div>
     {% endfor %}
 </div>

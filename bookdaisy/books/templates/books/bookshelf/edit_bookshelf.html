@@ -20,10 +20,20 @@
     </div>
 
     <div style="width: 30%; display: flex; flex-direction: column;">
-        <button style="font-size: 2em; width: 50px;" class="modal-trigger" data-target="modal1">+</button>
+        <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal1">+  add a book</button>
         <br>
         <div ondragover="onDragOver(event)" ondrop="onDrop(event)" id="trash">
-            <button style="font-size: 2em; width: 50px;">🗑</button>
+            <button style="width: 200px;" class="btn-hover">drag book to delete 🗑</button>
+        </div>
+        <br>
+        <div>
+
+            <form action="{% url 'shelf_color' %}" method="POST">
+                {% csrf_token %}
+                {{color_form|materializecss}}
+                <button type="submit" class="right">change bookshelf color</button>
+            </form>
+
         </div>
         <div id="modal1" class="modal">
             <div class="modal-content">
