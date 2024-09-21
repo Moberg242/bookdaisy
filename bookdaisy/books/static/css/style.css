@@ -76,7 +76,7 @@ input[type=number] {
     color: rgb(221, 221, 221);
 }
 
-#searchform {
+#searchform, .edit_shelf_container {
     display: flex;
     flex-direction: row;
 }
@@ -171,11 +171,17 @@ fieldset {
     background: center/200px no-repeat;
 }
 
+.edit_shelf {
+    margin-left: 8%;
+    margin-right: auto;
+}
+
 .bookshelf > div {
     align-content: center;
     text-align: center;
     overflow: hidden;
     border-radius: 7px;
+    z-index: 1;
 }
 
 #one, #two, #three, #four, #five {
@@ -216,4 +222,5 @@ fieldset {
     display: inline-block;
     transform: rotate(90deg);
     -moz-transform: rotate(90deg);
+    z-index: 1;
 }

@@ -43,7 +43,7 @@
 
     <ul class="sidenav" id="mobile-demo">
         <li><a href="{% url 'home' %}">Bookshelf</a></li>
-        <li><a href="#">Edit Shelf</a></li>
+        <li><a href="{% url 'edit_bookshelf' %}">Edit Shelf</a></li>
         <li><a href="{% url 'index' 'title' %}">My Library</a></li>
         <li><a href="{% url 'add_book' %}">Add a Book</a></li>
         <li><a href="{% url 'logout' %}">Log Out</a></li>
@@ -82,6 +82,11 @@
         M.AutoInit();
         $(document).ready(function() {
             $('.sidenav').sidenav();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, options);
         });
     </script>
 

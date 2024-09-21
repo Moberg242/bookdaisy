@@ -6,7 +6,10 @@ from django.conf import settings
 urlpatterns = [
     path('about/', views.about, name='about'),
     path('bookshelf/', views.home, name='home'),
-    path('bookshelf/edit', views.EditShelf.as_view(), name='edit_bookshelf'),
+    # path('bookshelf/edit', views.EditShelf.as_view(), name='edit_bookshelf'),
+    path('bookshelf/remove/<position>/', views.remove, name='remove'),
+    path('bookshelf/edit/', views.add, name='edit_bookshelf'),
+    path('bookshelf/add/<int:pk>/', views.add, name='added'),
     path('addbook/', views.AddBook.as_view(), name='add_book'),
     path('library/<sorted>/', views.Index.as_view(), name='index'),
     path('library/<sorted>/tbr/', views.Tbr.as_view(), name='tbr'),

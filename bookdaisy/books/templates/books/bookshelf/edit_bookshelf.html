@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %} {% load materializecss %}
+
+<h1>editing {{user|lower}}'s bookshelf</h1>
+<br><br>
+
+<div class="edit_shelf_container">
+
+    <div class="bookshelf edit_shelf" style="background-color: {{user.profile.color}};">
+        <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
+        {% for book in books %}
+        {% if book.bookshelf %}
+        <div id="{{book.get_position_display}}"
+            style="background-color: {{book.color}}; color: {{book.text_color}}; margin: 1px;" draggable="true"
+            ondragstart="onDragStart(event)">
+            <span class="rotate">{{book.title}}</span>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div style="width: 30%; display: flex; flex-direction: column;">
+        <button style="font-size: 2em; width: 50px;" class="modal-trigger" data-target="modal1">+</button>
+        <br>
+        <div ondragover="onDragOver(event)" ondrop="onDrop(event)" id="trash">
+            <button style="font-size: 2em; width: 50px;">🗑</button>
+        </div>
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                {% if avail_books %}
+                {{form.media}}
+                <form action="{% url 'added' '2' %}" method="POST">
+                    {% csrf_token %}
+                    <div hidden>
+                        <input type="checkbox" id="bookshelf" name="bookshelf" checked>
+                        <label for="bookshelf">Add to shelf?</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <select name="title" id="title" onchange="titleSelected(event)">
+                            <option value="0" disabled selected>book to add</option>
+                            {% for book in avail_books %}
+                            <option value="{{book.title}}">{{book.title}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <select name="position" id="position" onchange="positionSelected(event)">
+                            <option value="0" disabled selected>position on shelf</option>
+                            {% for position in positions %}
+                            {% if position not in used %}
+                            <option value="{{position}}">{{position}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {{form|materializecss}}
+                    <br>
+                    <div>
+                        <input type="submit" id="submit" value="Add" class="btn form-btn" style="visibility: hidden;">
+                        <a href="{% url 'edit_bookshelf' %}">back</a>
+                    </div>
+                </form>
+                {% else %}
+                <h6>Add more books to your library to udpate your bookshelf!</h6>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+
+<script>
+    let item;
+    let num;
+    function convertNumber(word) {
+        const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
+        num = words.indexOf(word)
+    }
+
+    function onDragStart(event) {
+        item = event.target.id;
+    }
+
+    function onDragOver(event) {
+        event.preventDefault();
+    }
+
+    function onDrop(event) {
+        convertNumber(item)
+        window.location.replace(`/bookshelf/remove/${num}`)
+    }
+
+    let title = null;
+    let position = null;
+    function titleSelected(e) {
+        title = e.target.value;
+        submitButton();
+    }
+
+    function positionSelected(e) {
+        position = e.target.value;
+        submitButton();
+    }
+
+    function submitButton() {
+        if(title !== null && position !== null) {
+            let button = document.getElementById('submit');
+            button.style.visibility = 'visible';
+        }
+    }
+</script>
+
+{% endblock %}

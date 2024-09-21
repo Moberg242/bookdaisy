@@ -4,10 +4,10 @@
 <h1>{{user|lower}}'s bookshelf</h1>
 <br><br>
 
-<div class="bookshelf" style="background-color: black;">
+<div class="bookshelf" style="background-color: {{user.profile.color}};">
     <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
     {% for book in books %}
-    <div id="{{book.position}}" style="background-color: {{book.color}}; color: {{book.text_color}}; margin: 1px;">
+    <div id="{{book.get_position_display}}" style="background-color: {{book.color}}; color: {{book.text_color}}; margin: 1px;">
         <span class="rotate">{{book.title}}</span>
     </div>
     {% endfor %}

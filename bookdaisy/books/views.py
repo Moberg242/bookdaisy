@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.forms import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from pyexpat import model
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import template
 from .models import Book, Profile
-from .forms import BookForm
+from .forms import BookForm, ShelfForm
 
 register = template.Library()
 
@@ -26,19 +26,19 @@ def about(req):
 @login_required
 def home(req):
     books = Book.objects.all().filter(Q(bookshelf=True) & Q(user=req.user))
-    return render(req, 'books/home.html', {'books':books})
+    return render(req, 'books/bookshelf/home.html', {'books':books})
 
-@login_required
-def add_book(req):
-    if req.method == 'POST':
-        form = BookForm(req.POST, req.FILES)
-        if form.is_valid():
-          new_book = form.save(commit=False)
-          new_book.save()
-          return redirect('home')
-    else:
-          form = BookForm()
-    return render(req, 'books/book_form.html', {'form':form})
+# @login_required
+# def add_book(req):
+#     if req.method == 'POST':
+#         form = BookForm(req.POST, req.FILES)
+#         if form.is_valid():
+#           new_book = form.save(commit=False)
+#           new_book.save()
+#           return redirect('home')
+#     else:
+#           form = BookForm()
+#     return render(req, 'books/book_form.html', {'form':form})
 
 def signup(request):
   error_message = ''
@@ -65,15 +65,6 @@ def change_theme(req):
      profile.save()
      return redirect (url)
 
-class EditShelf(LoginRequiredMixin, ListView):
-    model = Book
-    fields = ['bookshelf', 'position', 'color', 'text_color']
-    template_name = 'books/edit_bookshelf.html'
-
-    def get_queryset(self):
-        queryset = Book.objects.all().filter(user=self.request.user)
-        return queryset
-
 class AddBook(LoginRequiredMixin, CreateView):
      model = Book
      fields = ['title', 'author', 'genre', 'read', 'image']
@@ -84,7 +75,7 @@ class AddBook(LoginRequiredMixin, CreateView):
 
 class UpdateBook(LoginRequiredMixin, UpdateView):
      model = Book
-     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'color', 'text_color', 'image']
+     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'image']
 
 class DeleteBook(LoginRequiredMixin, DeleteView):
      model = Book
@@ -120,3 +111,35 @@ class SearchTitle(LoginRequiredMixin, ListView):
 class BookDetails(LoginRequiredMixin, DetailView):
      model = Book
      template_name = 'books/details.html'
+
+
+'''bookshelf editing views'''
+@login_required
+def add(req, **pk):
+    if req.method == 'POST':
+        data = req.POST
+        book = Book.objects.all().get(Q(user=req.user) & Q(title=data['title']))
+        book.bookshelf = True
+        book.position = data['position']
+        book.color = data['color']
+        book.text_color = data['text_color']
+        book.save()
+        return redirect('edit_bookshelf')
+    else:
+         form = ShelfForm(initial={'bookshelf':True})
+         books = Book.objects.all().filter(user=req.user)
+         avail_books = Book.objects.all().filter(Q(user=req.user) & Q(bookshelf=False))
+         used = books.filter(position__isnull = False).values_list('position', flat=True)
+         used_positions = list(used)
+         positions = [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+         context = {'form':form, 'books':books, 'positions':positions, 'used':used_positions, 'avail_books':avail_books}
+    return render(req, 'books/bookshelf/edit_bookshelf.html', context)
+
+@login_required
+def remove(req, position):
+    url = req.META.get('HTTP_REFERER')
+    book = Book.objects.all().get(Q(position = position) & Q(user = req.user))
+    book.bookshelf = False
+    book.position = None
+    book.save()
+    return redirect(url)

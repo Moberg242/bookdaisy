@@ -19,6 +19,29 @@ class Book(models.Model):
         (5, 'loved it'),
     )
 
+    POSITIONS = (
+        (1, 'one'),
+        (2, 'two'),
+        (3, 'three'),
+        (4, 'four'),
+        (5, 'five'),
+        (6, 'six'),
+        (7, 'seven'),
+        (8, 'eight'),
+        (9, 'nine'),
+        (10, 'ten'),
+        (11, 'eleven'),
+        (12, 'twelve'),
+        (13, 'thirteen'),
+        (14, 'fourteen'),
+        (15, 'fifteen'),
+        (16, 'sixteen'),
+        (17, 'seventeen'),
+        (18, 'eighteen'),
+        (19, 'nineteen'),
+        (20, 'twenty'),
+    )
+
     title = models.CharField()
     author = models.CharField()
     genre = models.CharField()
@@ -31,7 +54,7 @@ class Book(models.Model):
     color = ColorField(default='#FFFFFF')
     text_color = ColorField(default='000000')
     bookshelf = models.BooleanField(default=False)
-    position = models.CharField(blank=True, null=True)
+    position = models.IntegerField(choices=POSITIONS, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -39,10 +62,14 @@ class Book(models.Model):
     
     def get_absolute_url(self):
         return reverse('book_details', kwargs={'pk': self.id})
+    
+    class Meta:
+        unique_together = 'user', 'position'
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     darkTheme = models.BooleanField(default=False)
+    color = ColorField(default='000000')
     # friends = models.ManyToManyField("self",
     #     related_name="followed_by",
     #     symmetrical=True,
