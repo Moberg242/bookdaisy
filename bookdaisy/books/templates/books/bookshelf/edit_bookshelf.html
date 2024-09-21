@@ -29,7 +29,7 @@
             <div class="modal-content">
                 {% if avail_books %}
                 {{form.media}}
-                <form action="{% url 'added' '2' %}" method="POST">
+                <form action="{% url 'added' %}" method="POST">
                     {% csrf_token %}
                     <div hidden>
                         <input type="checkbox" id="bookshelf" name="bookshelf" checked>
