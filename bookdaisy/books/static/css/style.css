@@ -71,6 +71,10 @@ input[type=number] {
     color: rgb(221, 221, 221);
 }
 
+.btn-hover:focus {
+    background-color: inherit;
+}
+
 .form-btn:hover {
     background-color: rgb(76, 76, 76);
     color: rgb(221, 221, 221);
@@ -161,12 +165,12 @@ fieldset {
 
 .bookshelf {
     display: grid;
-    grid-template-columns: 12% 1fr 1fr 1fr 1fr 1fr 11%;
-    grid-template-rows: 6% 18% 7% 18% 6% 18% 8% 15% 1fr;
+    grid-template-columns: 12% 1fr 11%;
+    grid-template-rows: 6% 17% 7% 17% 7% 17% 7% 15% 2%;
     margin-right: auto;
     margin-left: auto;
     width: 60%;
-    max-width: 450px;
+    max-width: 500px;
     height: fit-content calc(120%);
     background: center/200px no-repeat;
 }
@@ -176,57 +180,44 @@ fieldset {
     margin-right: auto;
 }
 
-.bookshelf > div {
+.bookrow > div {
     align-content: center;
     text-align: center;
     overflow: hidden;
     border-radius: 7px;
     z-index: 1;
-}
-
-#one, #two, #three, #four, #five {
-    grid-row-start: 2;
-}
-
-#six, #seven, #eight, #nine, #ten {
-    grid-row-start: 4;
-}
-
-#eleven, #twelve, #thirteen, #fourteen, #fifteen {
-    grid-row-start: 6;
-}
-
-#sixteen, #seventeen, #eighteen, #nineteen, #twenty {
-    grid-row-start: 8;
-}
-
-#one, #six, #eleven, #sixteen {
-    grid-column-start: 2;
-}
-
-#two, #seven, #twelve, #seventeen {
-    grid-column-start: 3;
-}
-
-#three, #eight, #thirteen, #eighteen {
-    grid-column-start: 4;
-}
-#four, #nine, #fourteen, #nineteen {
-    grid-column-start: 5;
-}
-#five, #ten, #fifteen, #twenty {
-    grid-column-start: 6;
+    width: fit-content;
+    max-width: 75px; 
+    margin: 0.5px;
 }
 
 .rotate {
     display: inline-block;
     transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
     border: none;
     background-color: inherit;
+    font-family: Klee One;
+    font-size: small;
     z-index: 1;
 }
 
-.btn-hover:focus {
-    background-color: whitesmoke;
+.bookrow {
+    display: flex;
+    grid-column-start: 2;
+}
+
+.row1 {
+    grid-row-start: 2;
+}
+
+.row2 {
+    grid-row-start: 4;
+}
+
+.row3 {
+    grid-row-start: 6;
+}
+
+.row4 {
+    grid-row-start: 8;
 }

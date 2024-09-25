@@ -4,14 +4,49 @@
 <h1>{{user|lower}}'s bookshelf</h1>
 <br><br>
 
-<div class="bookshelf" style="background-color: {{user.profile.color}};">
+<div class="bookshelf edit_shelf" style="background-color: {{user.profile.color}};">
     <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
-    {% for book in books %}
-    <div id="{{book.get_position_display}}"
-        style="background-color: {{book.color}}; color: {{book.text_color}}; margin: 1px;">
-        <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}">{{book.title}}</button>
+    <div class="row1 bookrow">
+        {% for book in books %}
+        {% if book.position == 1 %}
+        <div id="{{book.id}}"
+            style="background-color: {{book.color}};">
+            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
+        </div>
+        {% endif %}
+        {% endfor %}
     </div>
-    {% endfor %}
+    <div class="row2 bookrow">
+        {% for book in books %}
+        {% if book.position == 2 %}
+        <div id="{{book.id}}"
+            style="background-color: {{book.color}};">
+            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row3 bookrow">
+        {% for book in books %}
+        {% if book.position == 3 %}
+        <div id="{{book.id}}"
+            style="background-color: {{book.color}};">
+            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row4 bookrow">
+        {% for book in books %}
+        {% if book.position == 4 %}
+        <div id="{{book.id}}"
+            style="background-color: {{book.color}};">
+            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
 </div>
 <br><br>
 

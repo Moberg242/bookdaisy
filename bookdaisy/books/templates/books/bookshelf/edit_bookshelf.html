@@ -8,19 +8,58 @@
 
     <div class="bookshelf edit_shelf" style="background-color: {{user.profile.color}};">
         <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
-        {% for book in books %}
-        {% if book.bookshelf %}
-        <div id="{{book.get_position_display}}"
-            style="background-color: {{book.color}}; color: {{book.text_color}}; margin: 1px;" draggable="true"
-            ondragstart="onDragStart(event)">
-            <span class="rotate">{{book.title}}</span>
+        <div class="row1 bookrow">
+            {% for book in books %}
+            {% if book.position == 1 %}
+            <div id="{{book.id}}"
+                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+                ondragstart="onDragStart(event)">
+                <span class="rotate">{{book.title}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
         </div>
-        {% endif %}
-        {% endfor %}
+
+        <div class="row2 bookrow">
+            {% for book in books %}
+            {% if book.position == 2 %}
+            <div id="{{book.id}}"
+                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+                ondragstart="onDragStart(event)">
+                <span class="rotate">{{book.title}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="row3 bookrow">
+            {% for book in books %}
+            {% if book.position == 3 %}
+            <div id="{{book.id}}"
+                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+                ondragstart="onDragStart(event)">
+                <span class="rotate">{{book.title}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="row4 bookrow">
+            {% for book in books %}
+            {% if book.position == 4 %}
+            <div id="{{book.id}}"
+                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+                ondragstart="onDragStart(event)">
+                <span class="rotate">{{book.title}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
     </div>
 
     <div style="width: 30%; display: flex; flex-direction: column;">
-        <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal1">+  add a book</button>
+        <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal1">+ add a book</button>
         <br>
         <div ondragover="onDragOver(event)" ondrop="onDrop(event)" id="trash">
             <button style="width: 200px;" class="btn-hover">drag book to delete 🗑</button>
@@ -57,11 +96,9 @@
 
                     <div class="input-field col s12">
                         <select name="position" id="position" onchange="positionSelected(event)">
-                            <option value="0" disabled selected>position on shelf</option>
+                            <option value="0" disabled selected>shelf</option>
                             {% for position in positions %}
-                            {% if position not in used %}
                             <option value="{{position}}">{{position}}</option>
-                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
@@ -84,11 +121,6 @@
 
 <script>
     let item;
-    let num;
-    function convertNumber(word) {
-        const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
-        num = words.indexOf(word)
-    }
 
     function onDragStart(event) {
         item = event.target.id;
@@ -99,8 +131,7 @@
     }
 
     function onDrop(event) {
-        convertNumber(item)
-        window.location.replace(`/bookshelf/remove/${num}`)
+        window.location.replace(`/bookshelf/remove/${item}`)
     }
 
     let title = null;
@@ -116,7 +147,7 @@
     }
 
     function submitButton() {
-        if(title !== null && position !== null) {
+        if (title !== null && position !== null) {
             let button = document.getElementById('submit');
             button.style.visibility = 'visible';
         }

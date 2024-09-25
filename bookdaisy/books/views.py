@@ -58,7 +58,7 @@ class AddBook(LoginRequiredMixin, CreateView):
 
 class UpdateBook(LoginRequiredMixin, UpdateView):
      model = Book
-     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes', 'image']
+     fields = ['title', 'author', 'genre', 'rating', 'read', 'recommend', 'notes','color', 'text_color', 'image']
 
 class DeleteBook(LoginRequiredMixin, DeleteView):
      model = Book
@@ -118,16 +118,14 @@ def add(req, **pk):
          color_form = ShelfColor(initial={'color':req.user.profile.color})
          books = Book.objects.all().filter(user=req.user)
          avail_books = Book.objects.all().filter(Q(user=req.user) & Q(bookshelf=False))
-         used = books.filter(position__isnull = False).values_list('position', flat=True)
-         used_positions = list(used)
-         positions = [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-         context = {'form':form, 'color_form':color_form, 'books':books, 'positions':positions, 'used':used_positions, 'avail_books':avail_books}
+         positions = [1, 2, 3, 4]
+         context = {'form':form, 'color_form':color_form, 'books':books, 'positions':positions, 'avail_books':avail_books}
     return render(req, 'books/bookshelf/edit_bookshelf.html', context)
 
 @login_required
-def remove(req, position):
+def remove(req, book_id):
     url = req.META.get('HTTP_REFERER')
-    book = Book.objects.all().get(Q(position = position) & Q(user = req.user))
+    book = Book.objects.all().get(id=book_id)
     book.bookshelf = False
     book.position = None
     book.save()

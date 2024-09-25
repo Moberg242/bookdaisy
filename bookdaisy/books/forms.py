@@ -11,7 +11,11 @@ from .models import Book, Profile
 class BookForm(ModelForm):
     class Meta:
         model = Book
-        fields = ['title','author','genre','read', 'read', 'recommend', 'notes', 'image']
+        fields = ['title','author','genre','read', 'read', 'recommend', 'notes', 'color', 'text_color', 'image']
+        widgets = {
+            'color':ColorWidget,
+            'text_color':ColorWidget
+        }
 
 class ShelfForm(ModelForm):
     class Meta:
@@ -19,6 +23,7 @@ class ShelfForm(ModelForm):
         fields = ['color', 'text_color']
         widgets = {
             'color':ColorWidget,
+            'text_color':ColorWidget
         }
 
 class ShelfColor(ModelForm):
