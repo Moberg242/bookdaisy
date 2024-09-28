@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<h2>Explore Bookshelves</h2>
+
+<div class="edit_shelf_container">
+{% for profile in profiles %}
+<a href="{% url 'home' profile.user.id %}">
+      <div class="card" id="explore-card">
+          <div class="card-content" style="display: flex; flex-wrap: wrap;">
+          {% if profile.image %}
+          <img src="{{profile.image.url}}" alt="" style="width: 50px; margin: 5px;">
+          {% endif %}
+          <div>
+          <span class="card-title">@{{profile.user.username}}</span>
+          {% if profile.description %}
+          <p>{{profile.description}}</p>
+          {% endif %}
+        </div></div>
+      </div></a>
+    {% endfor %}
+</div>
+
+{% endblock %}

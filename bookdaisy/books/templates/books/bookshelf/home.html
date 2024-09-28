@@ -109,12 +109,18 @@
         <div class="card">
             <div class="card-content">
                 {% if user.id == pk %}
-                <span class="card-title"><a href="#">{{profile.username}}</a></span>
+                <span class="card-title"><a href="{% url 'edit_profile' %}">{{profile.username}}</a></span>
                 {% else %}
                 <span class="card-title">{{profile.username}}</span>
                 {% endif %}
-                <p>BIO HERE Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eveniet quam, adipisci
-                    animi </p>
+                {% if profile.profile.image %}
+                <div class="card-image">
+                    <img src="{{profile.profile.image.url}}" alt="" style="width: 50px;">
+                </div>
+                {% endif %}
+                {% if profile.profile.description %}
+                <p>{{profile.profile.description}}</p>
+                {% endif %}
             </div>
         </div>
 

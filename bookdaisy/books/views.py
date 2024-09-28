@@ -24,6 +24,10 @@ register = template.Library()
 def about(req):
      return render(req, 'about.html')
 
+def explore(req):
+    profiles = Profile.objects.all()
+    return render(req, 'explore.html', {'profiles':profiles})
+
 @login_required
 def edit_profile(req):
     user = User.objects.get(id=req.user.id)
@@ -44,7 +48,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('home')
+      return redirect('explore')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()

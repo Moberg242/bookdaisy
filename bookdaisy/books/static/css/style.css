@@ -83,6 +83,7 @@ input[type=number] {
 #searchform, .edit_shelf_container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #searchform > input[type=text] {
@@ -115,7 +116,13 @@ a:hover {
 }
 
 #card-image {
-    width: 300px;
+    width: 170px;
+}
+
+#explore-card {
+    width: 350px;
+    height: 185px;
+    margin: 10px;
 }
 
 .card {

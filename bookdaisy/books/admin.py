@@ -4,6 +4,7 @@ from .models import Book, Profile
 
 # Register your models here.
 admin.site.register(Book)
+admin.site.register(Profile)
 admin.site.unregister(Group)
 admin.site.unregister(User)
 

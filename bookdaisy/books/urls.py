@@ -5,6 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('about/', views.about, name='about'),
+    path('explore/', views.explore, name='explore'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('bookshelf/<int:pk>', views.home, name='home'),
     path('bookshelf/remove/<book_id>/', views.remove, name='remove'),

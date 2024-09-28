@@ -29,12 +29,14 @@
                 <li><a href="{% url 'home' user.id %}">Home</a></li>
                 <li><a href="{% url 'index' '1' 'title' %}">My Library</a></li>
                 <li><a href="{% url 'add_book' %}">Add a Book</a></li>
+                <li><a href="{% url 'explore' %}">Explore</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}
                 <li><a href="{% url 'login' %}">Log In</a></li>
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'explore' %}">Explore</a></li>
+                {% endif %}
             </ul>
-            {% endif %}
             <a href="#" class="brand-logo right">Daisy Books <img id="headerimg"
                     src="{% static 'daisy.webp' %}" alt=""></a>
         </div>
@@ -45,10 +47,12 @@
         <li><a href="{% url 'home' user.id %}">Bookshelf</a></li>
         <li><a href="{% url 'index' '1' 'title' %}">My Library</a></li>
         <li><a href="{% url 'add_book' %}">Add a Book</a></li>
+        <li><a href="{% url 'explore' %}">Explore</a></li>
         <li><a href="{% url 'logout' %}">Log Out</a></li>
         {% else %}
         <li><a href="{% url 'login' %}"></a>Log In</li>
         <li><a href="{% url 'signup' %}"></a>Sign Up</li>
+        <li><a href="{% url 'explore' %}">Explore</a></li>
         {% endif %}
     </ul>
 

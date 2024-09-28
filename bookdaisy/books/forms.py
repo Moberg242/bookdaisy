@@ -42,7 +42,7 @@ class ProfileForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'email', 'description', 'image')
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('instance', None)
