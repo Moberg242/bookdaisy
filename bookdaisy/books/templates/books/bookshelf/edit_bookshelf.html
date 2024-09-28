@@ -6,13 +6,12 @@
 
 <div class="edit_shelf_container">
 
-    <div class="bookshelf edit_shelf" style="background-color: {{user.profile.color}};">
+    <div class="bookshelf" style="background-color: {{user.profile.color}};">
         <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
         <div class="row1 bookrow">
             {% for book in books %}
             {% if book.position == 1 %}
-            <div id="{{book.id}}"
-                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+            <div id="{{book.id}}" style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
                 ondragstart="onDragStart(event)">
                 <span class="rotate">{{book.title}}</span>
             </div>
@@ -23,8 +22,7 @@
         <div class="row2 bookrow">
             {% for book in books %}
             {% if book.position == 2 %}
-            <div id="{{book.id}}"
-                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+            <div id="{{book.id}}" style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
                 ondragstart="onDragStart(event)">
                 <span class="rotate">{{book.title}}</span>
             </div>
@@ -35,8 +33,7 @@
         <div class="row3 bookrow">
             {% for book in books %}
             {% if book.position == 3 %}
-            <div id="{{book.id}}"
-                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+            <div id="{{book.id}}" style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
                 ondragstart="onDragStart(event)">
                 <span class="rotate">{{book.title}}</span>
             </div>
@@ -47,8 +44,7 @@
         <div class="row4 bookrow">
             {% for book in books %}
             {% if book.position == 4 %}
-            <div id="{{book.id}}"
-                style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
+            <div id="{{book.id}}" style="background-color: {{book.color}}; color: {{book.text_color}};" draggable="true"
                 ondragstart="onDragStart(event)">
                 <span class="rotate">{{book.title}}</span>
             </div>
@@ -58,9 +54,11 @@
 
     </div>
 
-    <div style="width: 30%; display: flex; flex-direction: column;">
+    <div class="edit-menu" style="width: 30%; display: flex; flex-direction: column;">
         <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal1">+ add a book</button>
         <br>
+        <!-- <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal2">+ add decor</button>
+        <br> -->
         <div ondragover="onDragOver(event)" ondrop="onDrop(event)" id="trash">
             <button style="width: 200px;" class="btn-hover">drag book to delete 🗑</button>
         </div>
@@ -115,13 +113,23 @@
                 {% endif %}
             </div>
         </div>
+
+        <!-- <div id="modal2" class="modal">
+            <div class="modal-content">
+                <h4>Plants</h4>
+                <div class="decor-images">
+                    <img src="https://www.livelyroot.com/cdn/shop/files/Schefflera_Arboricola_Gold_Capella_light_basket.png?v=1684140478&width=500" alt="">
+                    <img src="https://easydrawingguides.com/wp-content/uploads/2020/11/Potted-Plant-Step-10.png" alt="">
+                </div>
+            </div>
+        </div> -->
     </div>
+
 </div>
 <br><br>
 
 <script>
     let item;
-
     function onDragStart(event) {
         item = event.target.id;
     }
@@ -152,6 +160,7 @@
             button.style.visibility = 'visible';
         }
     }
+
 </script>
 
 {% endblock %}

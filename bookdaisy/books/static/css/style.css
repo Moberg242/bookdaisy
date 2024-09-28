@@ -221,3 +221,13 @@ fieldset {
 .row4 {
     grid-row-start: 8;
 }
+
+.decor-images img {
+    width: 100px;
+    border: 1px solid rgb(191, 191, 191);
+    margin: 3px;
+}
+
+.decor-images {
+    border: 1px solid rgb(191, 191, 191);
+}

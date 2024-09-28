@@ -69,9 +69,10 @@ class Index(LoginRequiredMixin, ListView):
     template_name = 'books/index.html'
 
     def get_queryset(self):
-        queryset = Book.objects.all().filter(user=self.request.user)
-        return queryset.order_by(self.kwargs['sorted'])
-#     help from django docs
+        page_range = self.kwargs['page'] * 10
+        start = page_range - 10
+        queryset = Book.objects.all().filter(user=self.request.user).order_by(self.kwargs['sorted'])
+        return queryset[start:page_range]
 
 class Tbr(LoginRequiredMixin, ListView):
      model = Book
