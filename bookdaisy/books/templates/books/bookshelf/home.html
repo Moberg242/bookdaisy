@@ -1,105 +1,161 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
 
-<h1>{{user|lower}}'s bookshelf</h1>
+<h1>{{profile.username|lower}}'s bookshelf</h1>
 <br><br>
 
-<div class="bookshelf edit_shelf" style="background-color: {{user.profile.color}};">
-    <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
-    <div class="row1 bookrow">
-        {% for book in books %}
-        {% if book.position == 1 %}
-        <div id="{{book.id}}"
-            style="background-color: {{book.color}};">
-            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="row2 bookrow">
-        {% for book in books %}
-        {% if book.position == 2 %}
-        <div id="{{book.id}}"
-            style="background-color: {{book.color}};">
-            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="row3 bookrow">
-        {% for book in books %}
-        {% if book.position == 3 %}
-        <div id="{{book.id}}"
-            style="background-color: {{book.color}};">
-            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="row4 bookrow">
-        {% for book in books %}
-        {% if book.position == 4 %}
-        <div id="{{book.id}}"
-            style="background-color: {{book.color}};">
-            <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}" style="color: {{book.text_color}};">{{book.title}}</button>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
+<div class="edit_shelf_container">
 
-</div>
-<br><br>
-
-{% for book in books %}
-{% if book.bookshelf %}
-<div id="{{book.title}}" class="modal">
-    <div class="modal-content">
-        <div class="modal-body" style="width: inherit; border: none;">
-            <div class="card" style="background-color: {{book.color}}; color: {{book.text_color}};">
-                <div class="card-title center">
-                    <h5>{{book.title}}</h5>
-                </div>
-                <div class="card-image">
-                    <img src="{{book.image.url}}" alt="img" id="card-image">
-                </div>
-                <div class="card-content">
-                    <h6 class="center">{{book.author}}</h6>
-                </div>
+    <div class="bookshelf" style="background-color: {{profile.profile.color}};">
+        <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
+        <div class="row1 bookrow">
+            {% for book in books %}
+            {% if book.position == 1 %}
+            <div id="{{book.id}}" style="background-color: {{book.color}};">
+                <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}"
+                    style="color: {{book.text_color}};">{{book.title}}</button>
             </div>
-            <div class="details center">
-                <div id="rating">
-                    Rating:
-                    {% if book.rating > 5 %}
-                    <span>⭐ ⭐ ⭐ ⭐ ⭐ </span>
-                    {% elif book.rating == 0 %}
-                    <span>Not Read</span>
-                    {% else %}
-                    {% for item in "x"|ljust:book.rating %}
-                    ⭐
-                    {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row2 bookrow">
+            {% for book in books %}
+            {% if book.position == 2 %}
+            <div id="{{book.id}}" style="background-color: {{book.color}};">
+                <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}"
+                    style="color: {{book.text_color}};">{{book.title}}</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row3 bookrow">
+            {% for book in books %}
+            {% if book.position == 3 %}
+            <div id="{{book.id}}" style="background-color: {{book.color}};">
+                <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}"
+                    style="color: {{book.text_color}};">{{book.title}}</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row4 bookrow">
+            {% for book in books %}
+            {% if book.position == 4 %}
+            <div id="{{book.id}}" style="background-color: {{book.color}};">
+                <button class="rotate modal-trigger btn-hover" data-target="{{book.title}}"
+                    style="color: {{book.text_color}};">{{book.title}}</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+    <br><br>
+
+    {% for book in books %}
+    {% if book.bookshelf %}
+    <div id="{{book.title}}" class="modal">
+        <div class="modal-content">
+            <div class="modal-body" style="width: inherit; border: none;">
+                <div class="card" style="background-color: {{book.color}}; color: {{book.text_color}};">
+                    <div class="card-title center">
+                        <h5>{{book.title}}</h5>
+                    </div>
+                    <div class="card-image">
+                        <img src="{{book.image.url}}" alt="img" id="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h6 class="center">{{book.author}}</h6>
+                    </div>
+                </div>
+                <div class="details center">
+                    <div id="rating">
+                        Rating:
+                        {% if book.rating > 5 %}
+                        <span>⭐ ⭐ ⭐ ⭐ ⭐ </span>
+                        {% elif book.rating == 0 %}
+                        <span>Not Read</span>
+                        {% else %}
+                        {% for item in "x"|ljust:book.rating %}
+                        ⭐
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div>
+                        Genre: {{book.genre}}
+                    </div>
+                    {% if book.recommend == True %}
+                    <div>
+                        Recommend? Yes!
+                    </div>
+                    {% elif book.recommend == False %}
+                    <div>
+                        Recommend? No.
+                    </div>
                     {% endif %}
-                </div>
-                <div>
-                    Genre: {{book.genre}}
-                </div>
-                {% if book.recommend == True %}
-                <div>
-                    Recommend? Yes!
-                </div>
-                {% elif book.recommend == False %}
-                <div>
-                    Recommend? No.
-                </div>
-                {% endif %}
-                <div>
-                    <p>Notes <br>
-                        {{book.notes}}</p>
+                    <div>
+                        <p>Notes <br>
+                            {{book.notes}}</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
+    {% endfor %}
+
+    <div style="width: 30%;">
+
+        <div class="card">
+            <div class="card-content">
+                {% if user.id == pk %}
+                <span class="card-title"><a href="#">{{profile.username}}</a></span>
+                {% else %}
+                <span class="card-title">{{profile.username}}</span>
+                {% endif %}
+                <p>BIO HERE Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eveniet quam, adipisci
+                    animi </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <a href="#" class="modal-trigger" data-target="followers">
+                    <span>Following</span>
+                </a>
+            </div>
+        </div>
+
+        {% if user.id == pk %}
+        <div style="bottom: 0%">
+            <a href="{% url 'edit_bookshelf' %}">edit shelf</a>
+        </div>
+        {% endif %}
+
+
+        <div id="followers" class="modal">
+            <div class="modal-content">
+                {% for user in profile.profile.follows.all %}
+                <a href="{% url 'home' user.user.id %}">@{{user.user.username}}</a><br>
+                {% empty %}
+                <p>{{profile.username}} is not following anyone yet!</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% if user.id != pk and profile.profile not in user.profile.follows.all %}
+                <button class="btn form-btn btn-hover" name="follow" value="follow" type="submit">Follow</button>
+                {% elif user.id != pk and profile.profile in user.profile.follows.all %}
+                <button class="btn form-btn btn-hover" name="follow" value="unfollow" type="submit">Unfollow</button>
+                {% endif %}
+            </form>
+        </div>
+
+    </div>
 </div>
-{% endif %}
-{% endfor %}
+<br><br>
 
 {% endblock %}

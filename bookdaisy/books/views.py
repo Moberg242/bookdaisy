@@ -10,18 +10,32 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import template
 from .models import Book, Profile
-from .forms import BookForm, ShelfForm, ShelfColor
+from .forms import BookForm, ShelfForm, ShelfColor, ProfileForm
 
 register = template.Library()
 
 # Create your views here.
 def about(req):
      return render(req, 'about.html')
+
+@login_required
+def edit_profile(req):
+    user = User.objects.get(id=req.user.id)
+    if req.method == 'POST':
+        form = ProfileForm(req.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            login(req, user)
+            return redirect('profile')
+    form = ProfileForm(instance=req.user)
+    return render(req, 'users/edit_profile.html', {'form':form})
+            
 
 def signup(request):
   error_message = ''
@@ -99,9 +113,23 @@ class BookDetails(LoginRequiredMixin, DetailView):
 
 '''bookshelf views'''
 @login_required
-def home(req):
-    books = Book.objects.all().filter(Q(bookshelf=True) & Q(user=req.user))
-    return render(req, 'books/bookshelf/home.html', {'books':books})
+def home(req, pk):
+    books = Book.objects.all().filter(Q(bookshelf=True) & Q(user=pk))
+    profile = User.objects.get(id=pk)
+
+    if req.method == 'POST':
+        user = req.user.profile
+        user2 = profile.profile
+        print(user)
+        print(profile.profile)
+        action = req.POST['follow']
+        if action == 'unfollow':
+            user.follows.remove(user2)
+        elif action == 'follow':
+            user.follows.add(user2)
+        user.save()
+
+    return render(req, 'books/bookshelf/home.html', {'books':books, 'pk':pk, 'profile':profile})
 
 @login_required
 def add(req, **pk):
@@ -141,3 +169,4 @@ def shelf_color(req):
          profile.save()
      url = req.META.get('HTTP_REFERER')
      return redirect (url)
+

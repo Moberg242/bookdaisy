@@ -41,11 +41,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'books',
     'materializecssform',
     'colorfield',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -138,7 +138,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Add this variable to specify where successful logins should redirect to
-LOGIN_REDIRECT_URL = '/bookshelf/'
+LOGIN_REDIRECT_URL = '/library/1/title'
 
 # Add this variable to specify where logging out redirects to
 LOGOUT_REDIRECT_URL = '/about/'

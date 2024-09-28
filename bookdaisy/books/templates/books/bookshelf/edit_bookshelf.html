@@ -72,6 +72,10 @@
             </form>
 
         </div>
+        <br>
+        <div>
+            <a href="{% url 'home' user.id %}">back to bookshelf</a>
+        </div>
         <div id="modal1" class="modal">
             <div class="modal-content">
                 {% if avail_books %}

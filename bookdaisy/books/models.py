@@ -2,10 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from colorfield.fields import ColorField
 from django.urls import reverse
-
 from django.db.models.signals import post_save
-
-
 
 
 # Create your models here.
@@ -51,10 +48,10 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     darkTheme = models.BooleanField(default=False)
     color = ColorField(default='000000')
-    # friends = models.ManyToManyField("self",
-    #     related_name="followed_by",
-    #     symmetrical=True,
-    #     blank=True)
+    follows = models.ManyToManyField("self",
+        related_name="followed_by",
+        symmetrical=False,
+        blank=True)
     # https://www.youtube.com/watch?v=KNvSWubOaQY&list=PLCC34OHNcOtoQCR6K4RgBWNi3-7yGgg7b&index=3
 
     def __str__(self):

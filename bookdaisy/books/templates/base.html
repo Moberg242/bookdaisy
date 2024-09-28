@@ -26,8 +26,7 @@
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <!-- <li><a href="{% url 'about' %}">About</a></li> -->
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'home' %}">Bookshelf</a></li>
-                <li><a href="{% url 'edit_bookshelf' %}">Edit Shelf</a></li>
+                <li><a href="{% url 'home' user.id %}">Home</a></li>
                 <li><a href="{% url 'index' '1' 'title' %}">My Library</a></li>
                 <li><a href="{% url 'add_book' %}">Add a Book</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
@@ -36,17 +35,21 @@
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
             </ul>
             {% endif %}
-            <a href="{% url 'home' %}" class="brand-logo right">Daisy Books <img id="headerimg"
+            <a href="#" class="brand-logo right">Daisy Books <img id="headerimg"
                     src="{% static 'daisy.webp' %}" alt=""></a>
         </div>
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-        <li><a href="{% url 'home' %}">Bookshelf</a></li>
-        <li><a href="{% url 'edit_bookshelf' %}">Edit Shelf</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'home' user.id %}">Bookshelf</a></li>
         <li><a href="{% url 'index' '1' 'title' %}">My Library</a></li>
         <li><a href="{% url 'add_book' %}">Add a Book</a></li>
         <li><a href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}"></a>Log In</li>
+        <li><a href="{% url 'signup' %}"></a>Sign Up</li>
+        {% endif %}
     </ul>
 
     <main class="container">
