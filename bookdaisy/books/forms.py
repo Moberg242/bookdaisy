@@ -27,6 +27,11 @@ class ShelfForm(ModelForm):
             'color':ColorWidget,
             'text_color':ColorWidget
         }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['color'].widget.attrs.update({"id":"color"})
+        self.fields['text_color'].widget.attrs.update({"id":"text_color"})
 
 class ShelfColor(ModelForm):
     class Meta:

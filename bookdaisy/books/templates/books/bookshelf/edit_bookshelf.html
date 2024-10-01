@@ -80,7 +80,7 @@
             <div class="modal-content">
                 {% if avail_books %}
                 {{form.media}}
-                <form action="{% url 'added' %}" method="POST">
+                <form action="{% url 'added' %}" method="POST" id="addBookForm">
                     {% csrf_token %}
                     <div hidden>
                         <input type="checkbox" id="bookshelf" name="bookshelf" checked>
@@ -91,7 +91,7 @@
                         <select name="title" id="title" onchange="titleSelected(event)">
                             <option value="0" disabled selected>book to add</option>
                             {% for book in avail_books %}
-                            <option value="{{book.title}}">{{book.title}}</option>
+                            <option value="{{book.title}}" id="{{book.color}} {{book.text_color}}">{{book.title}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -104,13 +104,7 @@
                             {% endfor %}
                         </select>
                     </div>
-
-                    {{form|materializecss}}
                     <br>
-                    <div>
-                        <input type="submit" id="submit" value="Add" class="btn form-btn" style="visibility: hidden;">
-                        <a href="{% url 'edit_bookshelf' %}">back</a>
-                    </div>
                 </form>
                 {% else %}
                 <h6>Add more books to your library to udpate your bookshelf!</h6>
@@ -150,6 +144,7 @@
     let position = null;
     function titleSelected(e) {
         title = e.target.value;
+        colorForm();
         submitButton();
     }
 
@@ -157,14 +152,40 @@
         position = e.target.value;
         submitButton();
     }
+    
+    let container = document.getElementById('addBookForm');
+    // to set the colors in the form to match the saved book
+    function colorForm() {
+        let options = document.getElementById('title');
+        let id = options[options.selectedIndex].id;
+        let colors = id.split(" ");
+        let color = colors[0];
+        let textColor = colors[1];
+
+        let form = document.createElement('div');
+        form.innerHTML = `{{form|materializecss}}`;
+        container.appendChild(form);
+        let htmlColor = document.getElementById('color')
+        let htmlTextColor = document.getElementById('text_color')
+        htmlColor.value = color
+        htmlTextColor.placeholder = textColor
+
+    }
 
     function submitButton() {
         if (title !== null && position !== null) {
-            let button = document.getElementById('submit');
-            button.style.visibility = 'visible';
+            let buttonDiv = document.createElement('div');
+            buttonDiv.innerHTML = `<input type="submit" id="submit" value="Add" class="btn form-btn">`;
+            container.appendChild(buttonDiv);
         }
     }
 
 </script>
 
 {% endblock %}
+
+<!-- 
+<div>
+    <input type="submit" id="submit" value="Add" class="btn form-btn" style="visibility: hidden;">
+    <a href="{% url 'edit_bookshelf' %}">back</a>
+</div> -->
