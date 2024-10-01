@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import template
 from .models import Book, Profile
-from .forms import BookForm, ShelfForm, ShelfColor, ProfileForm
+from .forms import BookForm, ShelfForm, ShelfColor
 
 register = template.Library()
 
@@ -30,15 +30,16 @@ def explore(req):
 
 @login_required
 def edit_profile(req):
-    user = User.objects.get(id=req.user.id)
-    if req.method == 'POST':
-        form = ProfileForm(req.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            login(req, user)
-            return redirect('profile')
-    form = ProfileForm(instance=req.user)
-    return render(req, 'users/edit_profile.html', {'form':form})
+    pass
+    # user = User.objects.get(id=req.user.id)
+    # if req.method == 'POST':
+    #     form = ProfileForm(req.POST, instance=user)
+    #     if form.is_valid():
+    #         form.save()
+    #         login(req, user)
+    #         return redirect('profile')
+    # form = ProfileForm(instance=req.user)
+    # return render(req, 'users/edit_profile.html', {'form':form})
             
 
 def signup(request):

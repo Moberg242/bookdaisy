@@ -46,6 +46,7 @@ class Book(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ispublic = models.BooleanField(default=True)
     description = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     darkTheme = models.BooleanField(default=False)

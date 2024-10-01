@@ -5,6 +5,7 @@
 <br><br>
 
 <div class="edit_shelf_container">
+    {% if profile.profile.ispublic or profile.id == user.id or profile.profile in user.profile.follows.all %}
 
     <div class="bookshelf" style="background-color: {{profile.profile.color}};">
         <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
@@ -50,6 +51,9 @@
         </div>
 
     </div>
+    {% else %}
+    <div>This person's profile is private! Follow to view their bookshelf.</div>
+    {% endif %}
     <br><br>
 
     {% for book in books %}

@@ -36,19 +36,19 @@ class ShelfColor(ModelForm):
             'color':ColorWidget,
         }
 
-class ProfileForm(ModelForm):
-    email = forms.EmailField(label='email', widget=forms.TextInput())
-    password = None
+# class ProfileForm(ModelForm):
+#     email = forms.EmailField(label='email', widget=forms.TextInput())
+#     password = None
 
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'description', 'image')
+#     class Meta:
+#         model = User
+#         fields = ('username', 'email', 'description', 'image')
 
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('instance', None)
-        super().__init__(*args, **kwargs)
-        if user:
-            self.fields['username'].initial = user.username
-            self.fields['first_name'].initial = user.first_name
-            self.fields['last_name'].initial = user.last_name
-            self.fields['email'].initial = user.email
+#     def __init__(self, *args, **kwargs):
+#         user = kwargs.pop('instance', None)
+#         super().__init__(*args, **kwargs)
+#         if user:
+#             self.fields['username'].initial = user.username
+#             self.fields['first_name'].initial = user.first_name
+#             self.fields['last_name'].initial = user.last_name
+#             self.fields['email'].initial = user.email
