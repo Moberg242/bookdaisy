@@ -35,7 +35,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = os.environ.get("SECRET_KEY", "fallback")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+# DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -110,9 +111,16 @@ WSGI_APPLICATION = 'bookdaisy.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         
-        default='postgres://michelleoberg:5432@localhost/bookdaisy', conn_max_age=600, conn_health_checks=True
+        # default='postgresql://neondb_owner:BekANbIJgr72@ep-patient-mode-a5kq9pzr.us-east-2.aws.neon.tech/neondb?sslmode=require', conn_max_age=600, conn_health_checks=True
+      default='postgres://michelleoberg:5432@localhost/bookdaisy', conn_max_age=600, conn_health_checks=True
+        # default=os.environ.get("DATABASE_URL")
     )
 }
+
+# DATABASES['default'] = dj_database_url.config(
+        
+#         default=os.environ.get("DATABASE_URL")
+#     )
 
 
 # Password validation
