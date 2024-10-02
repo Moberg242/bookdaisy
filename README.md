@@ -1,10 +1,10 @@
 # WebBooks
 A web based personal library to store the books you love, the books you hated, and the books you haven't read yet. Start a collection and customize a bookshelf to show off your favorites!
 
-Visit the site here! https://bookdaisy.onrender.com/login
+Visit the site here! https://bookdaisy.onrender.com/accounts/login/
 
 ## Models and ERD
-![image](image.png)
+![image](./bookdaisy/media/image.png)
 
 ## Wireframes
 ![image](https://github.com/user-attachments/assets/7f85c517-95e8-48bf-9339-8e332aa5887d)
@@ -16,9 +16,9 @@ Visit the site here! https://bookdaisy.onrender.com/login
 * https://trello.com/b/ZMBkAVE2/daisy-books
 
 ## The Site
-![image](image-3.png)
-![image](image-1.png)
-![image](image-4.png)
+![image](./bookdaisy/media/image-3.png)
+![image](./bookdaisy/media/image-1.png)
+![image](./bookdaisy/media/image-4.png)
 
 ## User Stories
 * As a user (AAU) I can create and log into my own account.
@@ -33,6 +33,7 @@ Visit the site here! https://bookdaisy.onrender.com/login
 This project utilitizes Python and Django, and connects to a PSQL database.
 
 ## Future Features!
+* Ability to edit and update personal profiles.
 * More control over who can follow your account.
 * Add decor to my bookshelf from provided sticker packs.
 * Create multiple shelves.

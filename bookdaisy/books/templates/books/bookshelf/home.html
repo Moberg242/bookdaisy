@@ -113,7 +113,7 @@
         <div class="card">
             <div class="card-content">
                 {% if user.id == pk %}
-                <span class="card-title"><a href="{% url 'edit_profile' %}">{{profile.username}}</a></span>
+                <span class="card-title"><a href="#">{{profile.username}}</a></span>
                 {% else %}
                 <span class="card-title">{{profile.username}}</span>
                 {% endif %}

@@ -75,12 +75,6 @@
             {% else %}
             <td>Yes</td>
             {% endif %}
-            <td><a href="{% url 'update_book' book.id %}" class="grey-text">Edit</a></td>
-            <td>
-                <form action="{% url 'delete_book' book.id %}">
-                    <input type="submit" value="🗑" class="btn" style="background-color: transparent">
-                </form>
-            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -81,7 +81,7 @@ class UpdateBook(LoginRequiredMixin, UpdateView):
 
 class DeleteBook(LoginRequiredMixin, DeleteView):
      model = Book
-     success_url = '/library/title/'
+     success_url = '/library/1/title/'
 
 class Index(LoginRequiredMixin, ListView):
     model = Book
@@ -125,8 +125,6 @@ def home(req, pk):
     if req.method == 'POST':
         user = req.user.profile
         user2 = profile.profile
-        print(user)
-        print(profile.profile)
         action = req.POST['follow']
         if action == 'unfollow':
             user.follows.remove(user2)
