@@ -1,1 +1,0 @@
-web gunicorn bookdaisy.wsgi:application --log-file -
