@@ -7,7 +7,7 @@
 <div class="edit_shelf_container">
 
     <div class="bookshelf" style="background-color: {{user.profile.color}};">
-        <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
+        <img src="{% static 'bookshelf.png' %}" alt="bookshelf" id="bookshelf">
         <div class="row1 bookrow">
             {% for book in books %}
             {% if book.position == 1 %}
@@ -54,7 +54,7 @@
 
     </div>
 
-    <div class="edit-menu" style="width: 30%; display: flex; flex-direction: column;">
+    <div class="edit-menu">
         <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal1">+ add a book</button>
         <br>
         <!-- <button style="width: 200px;" class="modal-trigger btn-hover" data-target="modal2">+ add decor</button>

@@ -8,7 +8,7 @@
     {% if profile.profile.ispublic or profile.id == user.id or profile.profile in user.profile.follows.all %}
 
     <div class="bookshelf" style="background-color: {{profile.profile.color}};">
-        <img src="{% static 'shelf.png' %}" alt="bookshelf" id="bookshelf">
+        <img src="{% static 'bookshelf.png' %}" alt="bookshelf" id="bookshelf">
         <div class="row1 bookrow">
             {% for book in books %}
             {% if book.position == 1 %}
@@ -108,7 +108,7 @@
     {% endif %}
     {% endfor %}
 
-    <div style="width: 30%;">
+    <div class="edit-menu">
 
         <div class="card">
             <div class="card-content">
